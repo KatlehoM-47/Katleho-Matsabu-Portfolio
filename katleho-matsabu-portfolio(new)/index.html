@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Compatibility shim for environments where window.fetch has only a getter
+      (function () {
+        try {
+          var target = typeof window !== 'undefined' ? window : globalThis;
+          if (!target) return;
+          var currentFetch = target.fetch;
+          var desc = Object.getOwnPropertyDescriptor(target, 'fetch');
+          var proto = typeof Window !== 'undefined' ? Window.prototype : Object.getPrototypeOf(target);
+          var protoDesc = proto ? Object.getOwnPropertyDescriptor(proto, 'fetch') : null;
+
+          if ((desc && desc.get && !desc.set) || (protoDesc && protoDesc.get && !protoDesc.set)) {
+            if (protoDesc && protoDesc.configurable && protoDesc.get && !protoDesc.set) {
+              try {
+                Object.defineProperty(proto, 'fetch', {
+                  get: function () {
+                    return currentFetch;
+                  },
+                  set: function (fn) {
+                    currentFetch = fn;
+                  },
+                  configurable: true,
+                  enumerable: true,
+                });
+              } catch (e) {}
+            }
+
+            try {
+              Object.defineProperty(target, 'fetch', {
+                get: function () {
+                  return currentFetch;
+                },
+                set: function (fn) {
+                  currentFetch = fn;
+                },
+                configurable: true,
+                enumerable: true,
+              });
+            } catch (e) {}
+          }
+        } catch (err) {}
+      })();
+    </script>
+    <title>katleho — design engineer &amp; artist</title>
+    <meta name="description" content="Katleho Matsabu — Junior Developer &amp; UX Designer working across code, design and art." />
+    <meta property="og:title" content="katleho — design engineer &amp; artist" />
+    <meta property="og:description" content="Katleho Matsabu — Junior Developer &amp; UX Designer working across code, design and art." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="katleho — design engineer &amp; artist" />
+    <meta name="twitter:description" content="Katleho Matsabu — Junior Developer &amp; UX Designer working across code, design and art." />
+
+    <!-- Google Fonts Preconnect & Stylesheets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

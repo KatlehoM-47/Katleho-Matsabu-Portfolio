@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #F0EFE9;
+  --paper-raised: #E7E4DA;
+  --ink: #1C1B19;
+  --muted: #6E6C62;
+  --line: #D6D2C4;
+  --clay: #B8622D;
+  --slate: #3E5C76;
+  --radius: 3px;
+}
+
+html.dark {
+  --paper: #171714;
+  --paper-raised: #201F1B;
+  --ink: #EFEDE4;
+  --muted: #9A968A;
+  --line: #34322B;
+  --clay: #D98A54;
+  --slate: #7FA0C0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation: none !important;
+    transition-duration: 0.001s !important;
+  }
+}
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography helper classes */
+.font-fraunces {
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+.font-inter {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-mono {
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.font-handwriting {
+  font-family: 'Caveat', cursive;
+}
+
+/* Subtle focus ring adhering to accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--slate);
+  outline-offset: 2px;
+}
+
+/* Postcard paper effect */
+.postcard-card {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 14px -2px rgba(28, 27, 25, 0.05);
+}
+
+html.dark .postcard-card {
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.35);
+}
+
+/* Postcard stamp perforation effect */
+.postage-stamp {
+  position: relative;
+  border: 1px dashed var(--line);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--paper);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 3px;
+}
+
+/* Typewriter cursor effect */
+@keyframes typewriterBlink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1.05em;
+  background-color: var(--clay);
+  margin-left: 2px;
+  vertical-align: -0.08em;
+  border-radius: 1px;
+}
+
+.typewriter-cursor.blinking {
+  animation: typewriterBlink 0.85s steps(1, start) infinite;
+}
+
+.typewriter-cursor.solid {
+  opacity: 1;
+}

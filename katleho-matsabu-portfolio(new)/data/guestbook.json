@@ -1,0 +1,29 @@
+[
+  {
+    "id": "gb_1789072900764_m2w4o",
+    "name": "Alex",
+    "message": "Wonderful space on the web! Looking forward to seeing your next projects.",
+    "location": "London",
+    "stampColor": "#3E5C76",
+    "createdAt": "2026-09-10T20:41:40.764Z",
+    "dateFormatted": "Sep 10, 2026"
+  },
+  {
+    "id": "gb_seed_1",
+    "name": "Harry",
+    "message": "Hi Katleho! Loved browsing your UX case studies and generative pieces. The textures in your sketches have such a tactile feel. Keep making great things!",
+    "location": "Johannesburg",
+    "stampColor": "#B8622D",
+    "createdAt": "2026-09-07T20:41:35.497Z",
+    "dateFormatted": "Sep 7, 2026"
+  },
+  {
+    "id": "gb_seed_2",
+    "name": "Emily",
+    "message": "Stumbled upon your portfolio from your Python experiments. Really appreciate how clean the typography is and the personal touch throughout.",
+    "location": "Cape Town",
+    "stampColor": "#3E5C76",
+    "createdAt": "2026-09-03T20:41:35.523Z",
+    "dateFormatted": "Sep 3, 2026"
+  }
+]

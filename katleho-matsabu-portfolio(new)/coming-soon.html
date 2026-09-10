@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Compatibility shim for environments where window.fetch has only a getter
+      (function () {
+        try {
+          var target = typeof window !== 'undefined' ? window : globalThis;
+          if (!target) return;
+          var currentFetch = target.fetch;
+          var desc = Object.getOwnPropertyDescriptor(target, 'fetch');
+          var proto = typeof Window !== 'undefined' ? Window.prototype : Object.getPrototypeOf(target);
+          var protoDesc = proto ? Object.getOwnPropertyDescriptor(proto, 'fetch') : null;
+
+          if ((desc && desc.get && !desc.set) || (protoDesc && protoDesc.get && !protoDesc.set)) {
+            if (protoDesc && protoDesc.configurable && protoDesc.get && !protoDesc.set) {
+              try {
+                Object.defineProperty(proto, 'fetch', {
+                  get: function () {
+                    return currentFetch;
+                  },
+                  set: function (fn) {
+                    currentFetch = fn;
+                  },
+                  configurable: true,
+                  enumerable: true,
+                });
+              } catch (e) {}
+            }
+
+            try {
+              Object.defineProperty(target, 'fetch', {
+                get: function () {
+                  return currentFetch;
+                },
+                set: function (fn) {
+                  currentFetch = fn;
+                },
+                configurable: true,
+                enumerable: true,
+              });
+            } catch (e) {}
+          }
+        } catch (err) {}
+      })();
+    </script>
+    <title>Something new — katleho</title>
+    <meta name="description" content="A new project by Katleho Matsabu is currently in progress." />
+    <meta property="og:title" content="Something new — katleho" />
+    <meta property="og:description" content="A new project by Katleho Matsabu is currently in progress." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Something new — katleho" />
+    <meta name="twitter:description" content="A new project by Katleho Matsabu is currently in progress." />
+
+    <!-- Google Fonts Preconnect & Stylesheets (Same as main site) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --paper: #F0EFE9;
+        --paper-raised: #E8E6DF;
+        --clay: #B8622D;
+        --slate: #3E5C76;
+        --ink: #1C1B18;
+        --muted: #7A7870;
+        --line: #D8D5CC;
+        --radius: 10px;
+      }
+
+      html.dark {
+        --paper: #171714;
+        --paper-raised: #21201C;
+        --clay: #D47A43;
+        --slate: #5B82A6;
+        --ink: #EDECE6;
+        --muted: #8F8C82;
+        --line: #2C2B26;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: var(--paper);
+        color: var(--ink);
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      ::selection {
+        background-color: var(--clay);
+        color: #ffffff;
+      }
+
+      .page-container {
+        max-width: 760px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      /* Wordmark Header */
+      .site-header {
+        padding: 24px 0;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .wordmark {
+        font-family: 'Fraunces', serif;
+        font-weight: 600;
+        font-size: 1.22rem;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+        text-decoration: none;
+        transition: opacity 0.2s;
+        user-select: none;
+      }
+
+      .wordmark:hover {
+        opacity: 0.85;
+      }
+
+      .wordmark .dot {
+        color: var(--clay);
+        display: inline-block;
+        transition: transform 0.2s ease;
+      }
+
+      .wordmark:hover .dot {
+        transform: translateX(2px);
+      }
+
+      .theme-toggle {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        border: 1px solid var(--line);
+        background: var(--paper-raised);
+        color: var(--ink);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: border-color 0.2s, transform 0.2s;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      }
+
+      .theme-toggle:hover {
+        border-color: var(--clay);
+        transform: scale(1.08) rotate(15deg);
+      }
+
+      /* Center Content */
+      .center-wrapper {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 0;
+      }
+
+      .content-card {
+        max-width: 520px;
+        width: 100%;
+        text-align: left;
+      }
+
+      .status-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid var(--line);
+        background-color: var(--paper-raised);
+        padding: 4px 12px;
+        border-radius: 9999px;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.72rem;
+        color: var(--muted);
+        margin-bottom: 20px;
+      }
+
+      .status-pill .indicator-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: var(--clay);
+      }
+
+      .main-heading {
+        font-family: 'Fraunces', serif;
+        font-weight: 400;
+        font-size: clamp(1.85rem, 4.5vw, 2.45rem);
+        line-height: 1.25;
+        color: var(--ink);
+        margin: 0 0 16px 0;
+        letter-spacing: -0.01em;
+      }
+
+      .main-heading .highlight {
+        font-style: italic;
+        color: var(--clay);
+      }
+
+      .description-text {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.96rem;
+        line-height: 1.65;
+        color: var(--muted);
+        margin: 0 0 32px 0;
+        max-width: 48ch;
+      }
+
+      /* Progress Bar */
+      .progress-container {
+        background: var(--paper-raised);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 20px;
+        margin-bottom: 32px;
+      }
+
+      .progress-meta-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 12px;
+      }
+
+      .progress-label {
+        font-family: 'Fraunces', serif;
+        font-size: 0.98rem;
+        font-weight: 500;
+        color: var(--ink);
+      }
+
+      .project-tags {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      .project-tags.percentage-value {
+        color: var(--clay);
+        font-weight: 500;
+      }
+
+      .progress-track {
+        width: 100%;
+        height: 8px;
+        background-color: var(--line);
+        border-radius: var(--radius);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background-color: var(--clay);
+        border-radius: var(--radius);
+        width: 0%;
+        transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .progress-note {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.68rem;
+        color: var(--muted);
+        opacity: 0.85;
+      }
+
+      /* Link back to homepage (styled like .story a) */
+      .back-nav {
+        margin-top: 8px;
+      }
+
+      .back-link {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.75rem;
+        color: var(--slate);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        transition: border-color 0.2s ease, color 0.2s ease;
+      }
+
+      .back-link:hover {
+        border-bottom-color: var(--slate);
+      }
+
+      /* Site Footer */
+      .site-footer {
+        padding: 24px 0 40px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 0.72rem;
+        color: var(--muted);
+        flex-wrap: gap-2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <!-- Wordmark Header reusing the main site's exact branding -->
+      <header class="site-header">
+        <a href="index.html" class="wordmark" aria-label="Katleho homepage">
+          katleho<span class="dot">.</span>
+        </a>
+
+        <button
+          id="themeToggle"
+          class="theme-toggle"
+          aria-label="Toggle dark/light mode"
+          title="Toggle dark/light mode"
+        >
+          <!-- Injected via JavaScript based on active theme -->
+        </button>
+      </header>
+
+      <!-- Center Content -->
+      <div class="center-wrapper">
+        <main class="content-card">
+          <div class="status-pill">
+            <span class="indicator-dot"></span>
+            <span>In Progress · Project #04</span>
+          </div>
+
+          <h1 class="main-heading">
+            Something new is <span class="highlight">on the way</span>.
+          </h1>
+
+          <p class="description-text">
+            A small experiment in code and craft — taking shape quietly without shortcuts, intervention or noise.
+          </p>
+
+          <!-- Progress Bar Component -->
+          <div class="progress-container">
+            <div class="progress-meta-top">
+              <span class="progress-label">Build Progress</span>
+              <span id="progressPercentText" class="project-tags percentage-value"></span>
+            </div>
+
+            <div
+              class="progress-track"
+              role="progressbar"
+              aria-label="Project build progress"
+              id="progressBarTrack"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              <div id="progressFill" class="progress-fill"></div>
+            </div>
+
+            <div class="progress-note">
+              <span class="project-tags">Design &amp; Prototyping</span>
+              <span class="project-tags">Updated September 2026</span>
+            </div>
+          </div>
+
+          <!-- Small link back to homepage styled like .story a -->
+          <div class="back-nav">
+            <a href="index.html" class="back-link">
+              <span>←</span>
+              <span>Back to homepage</span>
+            </a>
+          </div>
+        </main>
+      </div>
+
+      <!-- Minimal footer -->
+      <footer class="site-footer">
+        <span>© 2026 Katleho Matsabu</span>
+        <span>Built with care</span>
+      </footer>
+    </div>
+
+    <script>
+      /**
+       * EDITABLE PROGRESS PERCENTAGE
+       * Update this single variable (0 to 100) by hand whenever you want to change progress.
+       * No backend needed!
+       */
+      const progress = 40;
+
+      // Initialize Progress Bar
+      function updateProgressBar(value) {
+        const fillEl = document.getElementById('progressFill');
+        const textEl = document.getElementById('progressPercentText');
+        const trackEl = document.getElementById('progressBarTrack');
+
+        if (trackEl) {
+          trackEl.setAttribute('aria-valuenow', String(value));
+        }
+        if (textEl) {
+          textEl.textContent = `${value}% completed`;
+        }
+        if (fillEl) {
+          // Slight delay to allow CSS transition to run smoothly
+          requestAnimationFrame(() => {
+            fillEl.style.width = `${Math.min(100, Math.max(0, value))}%`;
+          });
+        }
+      }
+
+      // Theme logic matching the main site
+      const root = document.documentElement;
+      const themeToggleBtn = document.getElementById('themeToggle');
+
+      function getInitialTheme() {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'dark' || saved === 'light') {
+          return saved;
+        }
+        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      function updateToggleIcon(isDark) {
+        if (!themeToggleBtn) return;
+        themeToggleBtn.innerHTML = isDark
+          ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D47A43" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>'
+          : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3E5C76" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+        themeToggleBtn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+      }
+
+      function applyTheme(theme) {
+        if (theme === 'dark') {
+          root.classList.add('dark');
+        } else {
+          root.classList.remove('dark');
+        }
+        updateToggleIcon(theme === 'dark');
+      }
+
+      let currentTheme = getInitialTheme();
+      applyTheme(currentTheme);
+
+      if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+          currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          localStorage.setItem('theme', currentTheme);
+          applyTheme(currentTheme);
+        });
+      }
+
+      // Respect system preference if not explicitly overridden
+      if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+          if (!localStorage.getItem('theme')) {
+            currentTheme = e.matches ? 'dark' : 'light';
+            applyTheme(currentTheme);
+          }
+        });
+      }
+
+      // Run progress bar update
+      document.addEventListener('DOMContentLoaded', () => {
+        updateProgressBar(progress);
+      });
+      // Also invoke immediately in case DOM is already parsed
+      updateProgressBar(progress);
+    </script>
+  </body>
+</html>
