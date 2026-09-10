@@ -135,7 +135,7 @@ export const STORIES: StoryItem[] = [
     subtitle: 'Observations on architecture, shadows, and quiet afternoons',
     teaser: 'A one or two line teaser of what this story is about, just enough to pull someone in.',
     coverImage: '/images/writing/story-1.webp',
-    pdfUrl: '/stories/story-1.pdf',
+    pdfUrl: '/stories/the-bar-convocation.pdf',
     date: 'February 2025',
     readTime: '4 min read',
     fullText: [
