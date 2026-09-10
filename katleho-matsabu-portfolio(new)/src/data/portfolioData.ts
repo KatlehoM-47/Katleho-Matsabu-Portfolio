@@ -131,17 +131,18 @@ export const INITIAL_PIECES_TILES: PieceTileItem[] = [
 export const STORIES: StoryItem[] = [
   {
     id: 'story-1',
-    title: 'Story title one',
+    title: 'The Bar Convocation ',
     subtitle: 'Observations on architecture, shadows, and quiet afternoons',
-    teaser: 'A one or two line teaser of what this story is about, just enough to pull someone in.',
-    coverImage: '/images/writing/story-1.webp',
+    teaser: 'The morning sun gleams upon rooftops, birds are chirping their soft rhythmic melodies into the still space. the curtains undressed by the opaque light.',
+    coverImage: '/images/writing/bar-convocation.jpg',
     pdfUrl: '/stories/the-bar-convocation.pdf',
     date: 'February 2025',
     readTime: '4 min read',
     fullText: [
-      'The morning came with a pale ochre light that stretched across the floorboards like watered ink. There was no urgency in the room—only the soft hum of the radiator and the deliberate rhythm of charcoal moving across heavy paper.',
-      'We spent hours discussing whether a building ever truly belongs to the architect who drafted it, or if it gradually surrenders its memory to the people who walk through its hallways in silence.',
-      'By noon, the shadows had sharpened into neat angles against the wall. Every line drawn seemed both permanent and fragile, waiting for an eraser or a gust of wind.',
+      'the morning sun gleams upon rooftops, birds are chirping their soft rhythmic melodies into the still space.',
+      'the curtains undressed by the opaque light.', 
+      'my closed eyes are in the way of the nesh light, melatonin escapes my restful body.',
+      'oh, i had to rise anyway!” i utter these words with a higher octave than usual.',
     ],
   },
   {
