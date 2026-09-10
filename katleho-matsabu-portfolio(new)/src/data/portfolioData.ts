@@ -131,7 +131,7 @@ export const INITIAL_PIECES_TILES: PieceTileItem[] = [
 export const STORIES: StoryItem[] = [
   {
     id: 'story-1',
-    title: 'The Bar Convocation ',
+    title: 'The Bar Convocation',
     subtitle: 'Observations on architecture, shadows, and quiet afternoons',
     teaser: 'The morning sun gleams upon rooftops, birds are chirping their soft rhythmic melodies into the still space. the curtains undressed by the opaque light.',
     coverImage: '/images/writing/bar-convocation.jpg',
